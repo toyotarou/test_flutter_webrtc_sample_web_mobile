@@ -24,9 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _localRenderer = RTCVideoRenderer();
 
-    initRenderers();
-
-    _startLocalStream();
+    initRenderers().then((_) => _startLocalStream());
   }
 
   ///
@@ -58,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _isLoading = true);
 
     try {
-      _localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+      _localStream =
+          await navigator.mediaDevices.getUserMedia(mediaConstraints);
 
       if (_localRenderer != null) {
         _localRenderer!.srcObject = _localStream;
@@ -90,7 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   ///
-  void _toggleCamera() => (_isCameraOn) ? _stopLocalStream() : _startLocalStream();
+  void _toggleCamera() =>
+      (_isCameraOn) ? _stopLocalStream() : _startLocalStream();
 
   ///
   @override
